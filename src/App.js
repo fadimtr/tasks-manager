@@ -11,9 +11,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={HomePage}/>
           <Route path="/login" component={LoginPage}/>
-          <PrivateRoute path="/protected" Component={Portal}/>
+          <PrivateRoute path="/portal" Component={Portal}/>
         </div>
       </Router>
     );

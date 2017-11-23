@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../../redux/actionsCreators/commonActionsCreators';
+import validate from '../../../services/database/userCredentialsValidator';
 
 class LoginPage extends Component {
 
@@ -11,13 +12,16 @@ class LoginPage extends Component {
       username:this.refs.username.value,
       password:this.refs.password.value
     }
+    var _this = this;
     
-    if(this.refs.username.value == 'fadi'){
-      this.props.login(credentials);
-      this.props.history.replace('/');
-    }else{
-      alert('error');
-    }
+    validate(credentials).then(function(result){
+      if(result){
+        _this.props.login(credentials);
+        _this.props.history.replace('/portal');
+      }else{
+        alert('wrong credentials!');
+      }
+    });
   }
 
   render() {
@@ -25,14 +29,14 @@ class LoginPage extends Component {
       <div className="login-page">
         <div className="title"> </div>
         <div className="login-form">
-          <form onSubmit={this.login.bind(this)}>
+          <form>
             <label>
               Username: <input type="text" name="username" ref="username"/>
             </label>
             <label>
               Password: <input type="password" name="password" ref="password"/>
             </label>
-            <input type="submit" value="Login" />
+            <input type="button" value="Login" onClick={this.login.bind(this)}/>
           </form>
         </div>
       </div>
