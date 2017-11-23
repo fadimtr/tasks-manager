@@ -1,28 +1,30 @@
 module.exports = {
     entry: "./index.js",
     output: {
-      filename: "bundle.js"
+      filename: "bundle.js",
+      publicPath: '/'
     }, 
     watch: true,
     module: {
 
         loaders: [
           {
-            test: /\.js$/,
+            test: /\.(js|jsx)$/,
             exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-              presets: ['react', 'es2015'] 
-            }
+            loader: 'babel-loader'
           },
           {
             test: /\.scss$/,
             loader: 'style-loader!css-loader!sass-loader'
-        }
+          }
         ]
         
     },
+    devtool: "#eval-source-map",
+    devServer: {
+      historyApiFallback: true,
+    },
     resolve: {
-        extensions: ['.js', '.es6']
+        extensions: ['.js', '.jsx']
     }
   }

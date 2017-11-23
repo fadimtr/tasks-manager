@@ -1,9 +1,18 @@
-const appReducers = (state = [], action) => {
+import {combineReducers} from 'redux';
+import *  as actions from '../actions/commonActions';
+
+function loginReducer(state = {isLoginSucceed:false}, action){
     switch (action.type) {
-      case 'TEST':
+      case actions.LOGIN:
+        return action.payload;
       default:
-        return state
+        return state;
     }
 }
-  
-  export default appReducers
+
+
+  const rootReducer = combineReducers({
+        loginDetails: loginReducer    
+    });
+    
+  export default rootReducer;
